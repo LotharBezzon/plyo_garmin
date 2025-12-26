@@ -1,0 +1,18 @@
+stuff/
+
+# File di sistema e IDE
+.DS_Store
+.vscode/
+bin/
+mir/
+gen/
+
+# File sensibili (LA TUA CHIAVE PRIVATA)
+developer_key.der
+developer_key.pem
+developer_key
+
+# File di build temporanei
+*.iq
+*.debug.xml
+internal-mir/
