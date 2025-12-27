@@ -4,21 +4,28 @@ import Toybox.WatchUi;
 
 class plyoApp extends Application.AppBase {
 
-    function initialize() {
+    private var _mainView as plyoView?;
+
+    public function initialize() {
         AppBase.initialize();
     }
 
     // onStart() is called on application start up
-    function onStart(state as Dictionary?) as Void {
+    public function onStart(state as Dictionary?) as Void {
     }
 
     // onStop() is called when your application is exiting
-    function onStop(state as Dictionary?) as Void {
+    public function onStop(state as Dictionary?) as Void {
+        if (_mainView != null) {
+            _mainView.stopRecording();
+            _mainView.saveRecording();
+        }
     }
 
     // Return the initial view of your application here
-    function getInitialView() as [Views] or [Views, InputDelegates] {
-        return [ new plyoView(), new plyoDelegate() ];
+    public function getInitialView() as [Views] or [Views, InputDelegates] {
+        _mainView = new plyoView();
+        return [ _mainView, new plyoDelegate(_mainView) ];
     }
 
 }
