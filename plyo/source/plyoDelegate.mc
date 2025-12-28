@@ -2,14 +2,14 @@ import Toybox.Lang;
 import Toybox.WatchUi;
 import Toybox.ActivityRecording;
 import Toybox.System;
+import Toybox.Application.Properties;
 
 class plyoDelegate extends WatchUi.BehaviorDelegate {
 
-    private var _view as plyoView;
+    private var _session as Session?;
 
-    public function initialize(view as plyoView) {
+    public function initialize() {
         BehaviorDelegate.initialize();
-        _view = view;
     }
 
     public function onMenu() as Boolean {
@@ -19,16 +19,16 @@ class plyoDelegate extends WatchUi.BehaviorDelegate {
 
     // Handle select button to start/stop recording
     public function onSelect() as Boolean {
-        // Start a session if it doesn't exist or is not recording
-        if (!_view.isSessionRecording()) {
-            _view.startRecording();
-            System.println("Started Plyo Recording");
-        } 
-        // Stop the session if it is recording
-        else {
-            _view.stopRecording();
-            System.println("Stopped Plyo Recording");
-        }
+        // Start a session and switch to activity view
+        _session = ActivityRecording.createSession({:name=>"Plyo Session", :sport=>Activity.SPORT_GENERIC});
+        _session.start();
+        System.println("Started Plyo Recording");
+        Properties.setValue("resting", true);
+
+        var view = new plyoActivityView(_session, 0, 0);
+        WatchUi.switchToView(view, new plyoActivityDelegate(view), WatchUi.SLIDE_LEFT);
+
         return true;
     }
+
 }

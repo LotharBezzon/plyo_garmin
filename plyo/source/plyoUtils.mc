@@ -1,4 +1,10 @@
 import Toybox.Math;
+import Toybox.Lang;
+
+/*
+    plyoUtils module
+    Contains utility classes for signal processing such as FFT and Auto-correlation.
+*/
 
 class SimpleFFT {
     
@@ -79,6 +85,15 @@ class SimpleFFT {
 }
 
 class autoCorrelation {
+
+    private var _minLag as Number = 1;
+    private var _maxLag as Number = 500;
+
+    public function initialize(minLag as Number, maxLag as Number) {
+        _minLag = minLag;
+        _maxLag = maxLag;
+    }
+
     public function compute(input) {
         var n = input.size();
         var result = new [n];
@@ -92,8 +107,14 @@ class autoCorrelation {
         for (var i = 0; i < n; i++) {
             input[i] -= mean;
         }
+
+        if (_maxLag != null) {
+            if (_maxLag > n) {
+                _maxLag = n;
+            }
+        }
         
-        for (var lag = 0; lag < n; lag++) {
+        for (var lag = _minLag; lag < _maxLag; lag++) {
             var sum = 0.0;
             for (var i = 0; i < n - lag; i++) {
                 sum += input[i] * input[i + lag];

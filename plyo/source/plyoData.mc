@@ -3,18 +3,20 @@ import Toybox.FitContributor;
 import Toybox.System;
 import Toybox.Lang;
 import Toybox.Math;
-using plyoUtils;
+import Toybox.Application.Properties;
+import Toybox.WatchUi;
+
+/*
+    plyoData class
+    Handles accelerometer data collection and processing for plyometric exercises.
+*/
 
 class plyoData {
     private var _accx = null;
     private var _accy = null;
     private var _accz = null;
 
-    private var _mode as String;
-
-    public function initialize(mode as String) {
-        _mode = mode;
-    }
+    private var _mode as String = Properties.getValue("mode");
 
     public function enableAccel() as Void {
         var period = 1; // seconds
@@ -50,10 +52,10 @@ class plyoData {
         _accz = data.accelerometerData.z;
 
         switch (_mode) {
-            case "SPEED_POGO":
+            case WatchUi.loadResource(Rez.Strings.menu_label_1): // Speed pogos
                 // Look for the frequency of jumps. Compute the
                 // manhattan norm of the accelerometer data and
-                // find the peak in the FFT spectrum.
+                // find the peak in the autocorrelation.
                 var size = _accx.size();
                 var manhattan = [];
                 var i, x, y, z; // preallocate loop variables
@@ -68,10 +70,10 @@ class plyoData {
                     manhattan.add(x + y + z);
                 }
 
-                var autoCorr = new autoCorrelation();
-                manhattan = autoCorr.compute(manhattan);
+                var autoCorr = new autoCorrelation(1, 50);
+                var corrs = autoCorr.compute(manhattan);
 
-                System.println(manhattan);
+                System.println(corrs);
 
                 break;
             default:
