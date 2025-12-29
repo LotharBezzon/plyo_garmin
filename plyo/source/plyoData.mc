@@ -16,11 +16,13 @@ class plyoData {
     private var _accy = null;
     private var _accz = null;
 
+    var period = 1; // seconds
+    var maxSampleRate = 25; // Hz
+
     private var _mode as String = Properties.getValue("mode");
 
     public function enableAccel() as Void {
-        var period = 1; // seconds
-        var maxSampleRate = 25; // Hz
+
         if (Sensor has :getMaxSampleRate) {
             maxSampleRate = Sensor.getMaxSampleRate();
         }
@@ -73,7 +75,13 @@ class plyoData {
                 var autoCorr = new autoCorrelation(1, 50);
                 var corrs = autoCorr.compute(manhattan);
 
-                System.println(corrs);
+                var peak = max(corrs.slice(1, null)); // ignore lag 0
+                System.println(peak);
+                var peakFrequency = maxSampleRate / peak[1];
+
+                System.println("corrs: " + corrs);
+
+                System.println("Peak Frequency: " + peakFrequency + " Hz");
 
                 break;
             default:
