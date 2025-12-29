@@ -23,9 +23,8 @@ class plyoApp extends Application.AppBase {
     // Return the initial view of your application here
     public function getInitialView() as [Views] or [Views, InputDelegates] {
         _mainView = new plyoView();
-        return [ _mainView, new plyoDelegate() ];
+        return [ _mainView, new plyoDelegate(_mainView) ];
     }
-
 }
 
 function getApp() as plyoApp {

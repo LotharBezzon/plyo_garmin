@@ -2,13 +2,28 @@ import Toybox.Graphics;
 import Toybox.WatchUi;
 import Toybox.ActivityRecording;
 import Toybox.Lang;
+import Toybox.Application.Properties;
 
 class plyoView extends WatchUi.View {
 
-    
+    private var _maxNumPages as Number = 5;
 
     public function initialize() {
         View.initialize();
+    }
+
+    public function nextPage() as Void {
+        var currentPage = Properties.getValue("currentPage") as Number;
+        currentPage = (currentPage + 1) % _maxNumPages;
+        Properties.setValue("currentPage", currentPage);
+        WatchUi.requestUpdate();
+    }
+
+    public function previousPage() as Void {
+        var currentPage = Properties.getValue("currentPage") as Number;
+        currentPage = (currentPage - 1 + _maxNumPages) % _maxNumPages;
+        Properties.setValue("currentPage", currentPage);
+        WatchUi.requestUpdate();
     }
 
     // Load your resources here

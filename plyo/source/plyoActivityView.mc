@@ -7,7 +7,7 @@ import Toybox.Timer;
 
 class plyoActivityView extends WatchUi.View {
 
-    public var session as Session;
+    public var session as Session?;
     private var _plyoData as plyoData?;
     var resting as Boolean;
     public var timeAtLastLap = 0;
@@ -92,7 +92,9 @@ class plyoActivityView extends WatchUi.View {
     public function saveRecording() as Void {
         if (session != null) {
             session.save();
-            WatchUi.switchToView(new plyoView(), new plyoDelegate(), WatchUi.SLIDE_RIGHT);
+            session = null; // Clean up
+            var view = new plyoView();
+            WatchUi.switchToView(view, new plyoDelegate(view), WatchUi.SLIDE_RIGHT);
         }
     }
 

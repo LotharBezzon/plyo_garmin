@@ -26,13 +26,15 @@ class plyoPauseMenuDelegate extends WatchUi.Menu2InputDelegate {
             // SAVE: Save data and return to the Start View (Idle)
             _session.save();
             _session = null; // Clean up
-            WatchUi.switchToView(new plyoView(), new plyoDelegate(), WatchUi.SLIDE_RIGHT);
+            var view = new plyoView();
+            WatchUi.switchToView(view, new plyoDelegate(view), WatchUi.SLIDE_RIGHT);
 
         } else if (id == :discard) {
             // DISCARD: Delete data and return to the Start View (Idle)
             _session.discard();
             _session = null; // Clean up
-            WatchUi.switchToView(new plyoView(), new plyoDelegate(), WatchUi.SLIDE_RIGHT);
+            var view = new plyoView();
+            WatchUi.switchToView(view, new plyoDelegate(view), WatchUi.SLIDE_RIGHT);
         }
     }
     

@@ -79,9 +79,9 @@ class plyoData {
                 System.println(peak);
                 var peakFrequency = maxSampleRate / peak[1].toFloat();
 
-                System.println("corrs: " + corrs);
+                //System.println("corrs: " + corrs);
 
-                System.println("Peak Frequency: " + peakFrequency + " Hz");
+                //System.println("Peak Frequency: " + peakFrequency + " Hz");
 
                 break;
             default:

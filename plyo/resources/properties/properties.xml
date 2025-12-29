@@ -2,4 +2,5 @@
     <property id="AppVersion" type="string">1.0.0</property>
     <property id="mode" type="string">@strings.menu_label_1</property>
     <property id="resting" type="boolean">true</property>
+    <property id="currentPage" type="number">0</property>
 </properties>
