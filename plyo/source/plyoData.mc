@@ -75,9 +75,9 @@ class plyoData {
                 var autoCorr = new autoCorrelation(1, 50);
                 var corrs = autoCorr.compute(manhattan);
 
-                var peak = max(corrs.slice(1, null)); // ignore lag 0
+                var peak = max(corrs);
                 System.println(peak);
-                var peakFrequency = maxSampleRate / peak[1];
+                var peakFrequency = maxSampleRate / peak[1].toFloat();
 
                 System.println("corrs: " + corrs);
 
