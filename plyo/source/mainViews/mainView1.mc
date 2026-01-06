@@ -4,31 +4,15 @@ import Toybox.ActivityRecording;
 import Toybox.Lang;
 import Toybox.Application.Properties;
 
-class plyoView extends WatchUi.View {
-
-    private var _maxNumPages as Number = 5;
+class plyoView1 extends WatchUi.View {
 
     public function initialize() {
         View.initialize();
     }
 
-    public function nextPage() as Void {
-        var currentPage = Properties.getValue("currentPage") as Number;
-        currentPage = (currentPage + 1) % _maxNumPages;
-        Properties.setValue("currentPage", currentPage);
-        WatchUi.requestUpdate();
-    }
-
-    public function previousPage() as Void {
-        var currentPage = Properties.getValue("currentPage") as Number;
-        currentPage = (currentPage - 1 + _maxNumPages) % _maxNumPages;
-        Properties.setValue("currentPage", currentPage);
-        WatchUi.requestUpdate();
-    }
-
     // Load your resources here
     public function onLayout(dc as Dc) as Void {
-        setLayout(Rez.Layouts.MainLayout(dc));
+        setLayout(Rez.Layouts.Main1Layout(dc));
     }
 
     // Called when this View is brought to the foreground. Restore
@@ -40,7 +24,7 @@ class plyoView extends WatchUi.View {
     // Update the view
     public function onUpdate(dc as Dc) as Void {
         View.onUpdate(dc);
-        
+
     }
 
     // Called when this View is removed from the screen. Save the

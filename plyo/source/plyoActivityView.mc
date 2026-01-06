@@ -93,8 +93,8 @@ class plyoActivityView extends WatchUi.View {
         if (session != null) {
             session.save();
             session = null; // Clean up
-            var view = new plyoView();
-            WatchUi.switchToView(view, new plyoDelegate(view), WatchUi.SLIDE_RIGHT);
+            var currentPage = Properties.getValue("currentPage") as Number;
+            WatchUi.switchToView(pageToView(currentPage), new plyoDelegate(), WatchUi.SLIDE_RIGHT);
         }
     }
 

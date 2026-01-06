@@ -1,5 +1,6 @@
 using Toybox.WatchUi;
 using Toybox.ActivityRecording;
+import Toybox.Application.Properties;
 
 class plyoPauseMenuDelegate extends WatchUi.Menu2InputDelegate {
     private var _session;
@@ -26,15 +27,15 @@ class plyoPauseMenuDelegate extends WatchUi.Menu2InputDelegate {
             // SAVE: Save data and return to the Start View (Idle)
             _session.save();
             _session = null; // Clean up
-            var view = new plyoView();
-            WatchUi.switchToView(view, new plyoDelegate(view), WatchUi.SLIDE_RIGHT);
+            var currentPage = Properties.getValue("currentPage");
+            WatchUi.switchToView(pageToView(currentPage), new plyoDelegate(), WatchUi.SLIDE_RIGHT);
 
         } else if (id == :discard) {
             // DISCARD: Delete data and return to the Start View (Idle)
             _session.discard();
             _session = null; // Clean up
-            var view = new plyoView();
-            WatchUi.switchToView(view, new plyoDelegate(view), WatchUi.SLIDE_RIGHT);
+            var currentPage = Properties.getValue("currentPage");
+            WatchUi.switchToView(pageToView(currentPage), new plyoDelegate(), WatchUi.SLIDE_RIGHT);
         }
     }
     

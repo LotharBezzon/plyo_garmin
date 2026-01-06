@@ -58,5 +58,29 @@ class autoCorrelation {
         
         return result;
     }
-    
+}
+
+function pageToView(page as Number) {
+    var newView;
+    switch (page) {
+        case 0:
+            newView = new plyoView1();
+            break;
+        case 1:
+            newView = new plyoView2();
+            break;
+        case 2:
+            newView = new plyoView3();
+            break;
+        case 3:
+            newView = new plyoView4();
+            break;
+        case 4:
+            newView = new plyoView5();
+            break;
+        default:
+            newView = new plyoView1();
+            break;
+    }
+    return newView;
 }

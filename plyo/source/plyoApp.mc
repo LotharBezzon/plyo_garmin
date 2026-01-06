@@ -1,10 +1,9 @@
 import Toybox.Application;
 import Toybox.Lang;
 import Toybox.WatchUi;
+import Toybox.Application.Properties;
 
 class plyoApp extends Application.AppBase {
-
-    private var _mainView as plyoView?;
 
     public function initialize() {
         AppBase.initialize();
@@ -16,14 +15,12 @@ class plyoApp extends Application.AppBase {
 
     // onStop() is called when your application is exiting
     public function onStop(state as Dictionary?) as Void {
-        if (_mainView != null) {
-        }
     }
 
     // Return the initial view of your application here
     public function getInitialView() as [Views] or [Views, InputDelegates] {
-        _mainView = new plyoView();
-        return [ _mainView, new plyoDelegate(_mainView) ];
+        var currentPage = Properties.getValue("currentPage") as Number;
+        return [pageToView(currentPage), new plyoDelegate()];
     }
 }
 

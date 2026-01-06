@@ -7,11 +7,10 @@ import Toybox.Application.Properties;
 class plyoDelegate extends WatchUi.BehaviorDelegate {
 
     private var _session as Session?;
-    public var mainView as plyoView;
+    private var _maxNumPages as Number = 5;
 
-    public function initialize(in_view as plyoView) {
+    public function initialize() {
         BehaviorDelegate.initialize();
-        mainView = in_view;
     }
 
     public function onMenu() as Boolean {
@@ -20,12 +19,19 @@ class plyoDelegate extends WatchUi.BehaviorDelegate {
     }
 
     public function onPreviousPage() as Boolean {
-        mainView.previousPage();
+        var currentPage = Properties.getValue("currentPage") as Number;
+        currentPage = (currentPage - 1 + _maxNumPages) % _maxNumPages;
+        Properties.setValue("currentPage", currentPage);
+        WatchUi.switchToView(pageToView(currentPage), me, WatchUi.SLIDE_UP);
         return true;
     }
 
     public function onNextPage() as Boolean {
-        mainView.nextPage();
+        var currentPage = Properties.getValue("currentPage");
+        currentPage = (currentPage + 1) % _maxNumPages;
+        Properties.setValue("currentPage", currentPage);
+        var newView = pageToView(currentPage);
+        WatchUi.switchToView(newView, me, WatchUi.SLIDE_DOWN);
         return true;
     }
 
